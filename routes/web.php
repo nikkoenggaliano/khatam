@@ -19,9 +19,22 @@ use App\Http\Controllers\PublicController;
 
 Route::get('/', [PublicController::class, 'public'])->name('public');
 
-Route::get('/dashboard', function(){
+Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
 
 Route::get('/surah/{id}', [PublicController::class, 'BacaSurah'])->name('baca-surah');
+
+
+
+Route::prefix('auth')->group(function () {
+
+    Route::get('/register', function () {
+        return view('auth.register');
+    })->name('register-page');
+
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login-page');
+});

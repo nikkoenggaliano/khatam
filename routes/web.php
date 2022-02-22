@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,10 +20,11 @@ use App\Http\Controllers\PublicController;
 
 Route::get('/', [PublicController::class, 'public'])->name('public');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('user-dashboard');
 });
-
 
 Route::get('/surah/{id}', [PublicController::class, 'BacaSurah'])->name('baca-surah');
 
@@ -37,4 +39,9 @@ Route::prefix('auth')->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     })->name('login-page');
+
+    Route::get('/logout', [UserController::class, 'Logout'])->name('logout');
+    Route::post('/register-action', [UserController::class, 'Register'])->name('save-register');
+    Route::post('/login-action', [UserController::class, 'Login'])->name('save-login');
+
 });

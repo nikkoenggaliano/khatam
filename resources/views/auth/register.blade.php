@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/register.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/auth.css') }}">
 </head>
 
 <body>
@@ -21,14 +21,20 @@
                         <a href="/">
                             <h1 class="title is-1">Khataman</h1>
                         </a>
-                        <h2 class="subtitle colored is-4">Lorem ipsum dolor sit amet.</h2>
+                        @if(session()->has('success'))
+                            <h2 class="subtitle colored is-4">{{session('success')}}</h2>
+                        @elseif(session()->has('error'))
+                            <h2 class="subtitle errorMsg is-4">{{session('error')}}</h2>
+                        @endif
+                    
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ex deleniti aliquam
                             tempora libero excepturi vero soluta odio optio sed.</p>
                     </div>
                     <div class="column right has-text-centered">
                         <h1 class="title is-4">Daftar Sekarang</h1>
                         <p class="description">Daftar di situs kami, dapatkan manfaatnya</p>
-                        <form>
+                        <form method="POST" action="{{route('save-register')}}" autocomplete="OFF">
+                            @csrf
                             <div class="field">
                                 <div class="control">
                                     <input class="input is-medium" type="text" placeholder="Nama Lengkap" name="name">
@@ -97,87 +103,4 @@
         </div>
     </section>
 </body>
-<style>
-    :root {
-        --brandColor: hsl(166, 67%, 51%);
-        --background: rgb(247, 247, 247);
-        --textDark: hsla(0, 0%, 0%, 0.66);
-        --textLight: hsla(0, 0%, 0%, 0.33);
-    }
-
-    body {
-        background: var(--background);
-        height: 100vh;
-        color: var(--textDark);
-    }
-
-    .field:not(:last-child) {
-        margin-bottom: 1rem;
-    }
-
-    .register {
-        margin-top: 10rem;
-        background: white;
-        border-radius: 10px;
-    }
-
-    .left,
-    .right {
-        padding: 4.5rem;
-    }
-
-    .left {
-        border-right: 5px solid var(--background);
-    }
-
-    .left .title {
-        font-weight: 800;
-        letter-spacing: -2px;
-    }
-
-    .left .colored {
-        color: var(--brandColor);
-        font-weight: 500;
-        margin-top: 1rem !important;
-        letter-spacing: -1px;
-    }
-
-    .left p {
-        color: var(--textLight);
-        font-size: 1.15rem;
-    }
-
-    .right .title {
-        font-weight: 800;
-        letter-spacing: -1px;
-    }
-
-    .right .description {
-        margin-top: 1rem;
-        margin-bottom: 1rem !important;
-        color: var(--textLight);
-        font-size: 1.15rem;
-    }
-
-    .right small {
-        color: var(--textLight);
-    }
-
-    input {
-        font-size: 1rem;
-    }
-
-    input:focus {
-        border-color: var(--brandColor) !important;
-        box-shadow: 0 0 0 1px var(--brandColor) !important;
-    }
-
-    .fab,
-    .fas {
-        color: var(--textLight);
-        margin-right: 1rem;
-    }
-
-</style>
-
 </html>

@@ -94,7 +94,17 @@
                     </div>
                 </div>
             </div>
-            @guest
+            @if(Auth::check())
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-danger" href="{{ route('logout') }}">
+                            <strong>Log Out</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @else
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
@@ -107,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-            @endguest
+            @endif
 
         </div>
     </nav>

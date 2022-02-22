@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/register.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/auth.css') }}">
 </head>
 
 <body>
@@ -21,18 +21,23 @@
                         <a href="/">
                             <h1 class="title is-1">Khataman</h1>
                         </a>
-                        <h2 class="subtitle colored is-4">Lorem ipsum dolor sit amet.</h2>
+                        @if(session()->has('success'))
+                            <h2 class="subtitle colored is-4">{{session('success')}}</h2>
+                        @elseif(session()->has('error'))
+                            <h2 class="subtitle errorMsg is-4">{{session('error')}}</h2>
+                        @endif
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ex deleniti aliquam
                             tempora libero excepturi vero soluta odio optio sed.</p>
                     </div>
                     <div class="column right has-text-centered">
                         <h1 class="title is-4">Masuk Sekarang</h1>
                         <p class="description">Kamu bisa masuk menggunakan Email / Username</p>
-                        <form>
+                        <form method="POST" action="{{route('save-login')}}" autocomplete="OFF">
+                            @csrf
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-medium" type="email" placeholder="Surel / Email"
-                                        name="email">
+                                    <input class="input is-medium" type="text" placeholder="Surel / Email"
+                                        name="user">
                                 </div>
                             </div>
                             <div class="field">

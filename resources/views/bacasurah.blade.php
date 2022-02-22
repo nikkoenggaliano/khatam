@@ -1,54 +1,62 @@
 @extends('template.template')
-
+@section('title', 'Baca Surah Al Maidah')
 
 
 @section('content')
-<link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet"> 
-<style>
-    .ayat {
-        font-family: 'Lateef', cursive;
-        font-size: 50px;
-    }
+    <style>
+        .ayat {
+            font-family: 'litelpmq';
+            font-size: 30px;
+            line-height: 2.2;
+        }
 
-    .no-ayat span {
-        padding: 10px;
-        background: #000000;
-        color: #ffffff;
-    }
+        .no-ayat span {
+            padding: 10px;
+            background: #000000;
+            color: #ffffff;
+        }
 
-    #bacaan {
-        font-size: 20px;
-    }
+        #bacaan {
+            font-size: 20px;
+        }
 
-    #arti {
-        font-size: 22px;
-    }
+        #arti {
+            font-size: 22px;
+        }
 
-    #nama-surat {
-        display: block;
-    }
-    .bold {
-      font-weight: bold;
-    }
-</style>
+        #nama-surat {
+            display: block;
+        }
 
-<section class="section">
-    <div class="content">
-        @foreach ($data as $item)
-            <div class="box">
-                <div class="no-ayat">
-                    <span>{{$item->ayat_id}}</span>
-                </div>
-                <p class="ayat has-text-right">{{$item->arab}}</p>
-                <p class="bacaan has-text-right">{{$item->bacaan}}</p>
-                <p class="arti has-text-right">{{$item->arti}}</p>
+        .bold {
+            font-weight: bold;
+        }
+
+    </style>
+
+    <section class="section">
+        <div class="content">
+            <div class="has-text-centered">
+                <h1>{{ $data[0]->nama_surah }} ({{ $data[0]->surah_arti }})</h1>
             </div>
-        @endforeach
+            <div class="ayat has-text-centered">
+                <p class="">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+            </div>
+            @foreach ($data as $item)
+                <div class="columns is-centered">
+                    <div class="column is-7">
+                        <div class="box">
+                            <div class="no-ayat">
+                                <span>{{ $item->ayat_id }}</span>
+                            </div>
+                            <p class="ayat has-text-right">{{ $item->arab }}</p>
+                            <p class="bacaan has-text-left">{{ $item->bacaan }}</p>
+                            <p class="arti has-text-left">{{ $item->arti }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
 
-    </div>
-</section>
-
+        </div>
+    </section>
 @endsection

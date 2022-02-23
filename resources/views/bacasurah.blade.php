@@ -1,5 +1,5 @@
 @extends('template.template')
-@section('title', 'Baca Surah Al Maidah')
+@section('title', 'Khataman - ' . $data[0]->nama_surah)
 
 
 @section('content')
@@ -56,6 +56,46 @@
                     </div>
                 </div>
             @endforeach
+            <div class="has-text-centered mb-4">
+                <h3 class="">Surah-Surah Paling Sering Dicari</h3>
+            </div>
+            @php
+                
+                $indexing = [
+                    0 => [0, 3],
+                    1 => [3, 6],
+                    2 => [6, 9],
+                ];
+                
+            @endphp
+
+            <div class="columns is-10 is-centered mt-2">
+                <div class="columns">
+                    @for ($x = 0; $x < 3; $x++)
+                        <div class="column is-4">
+                            <table class="table is-fullwidth">
+                                <tbody>
+                                    @for ($i = $indexing[$x][0]; $i < $indexing[$x][1]; $i++)
+                                        <tr>
+                                            <td>
+                                                <div class="no-ayat mt-2">
+                                                    <span>{{ $quick_data[$i]->id }}.</span>
+                                                </div>
+                                                <div class="nama-surah">
+                                                    <a href="{{ route('baca-surah', ['id' => $quick_data[$i]->id]) }}">
+                                                        <p class="mt-3 ml-6 mb-1 bold">{{ $quick_data[$i]->nama_surah }}
+                                                            ({{ $quick_data[$i]->arti }})</p>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endfor
+                                </tbody>
+                            </table>
+                        </div>
+                    @endfor
+                </div>
+            </div>
         </div>
     </section>
 @endsection

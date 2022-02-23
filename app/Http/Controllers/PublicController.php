@@ -33,6 +33,14 @@ class PublicController extends Controller
             ->where('q.surat_id', '=', $id)
             ->get();
 
-        return view('bacasurah', ['data' => $data]);
+
+        $quick_links = array(
+
+            36, 56, 67, 18, 55, 2, 114, 28, 22
+
+        );
+
+        $quick_data = DB::table('surah')->whereIn('id', $quick_links)->get();
+        return view('bacasurah', ['data' => $data, 'quick_data' => $quick_data]);
     }
 }

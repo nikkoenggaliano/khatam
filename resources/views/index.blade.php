@@ -1,4 +1,5 @@
 @extends('template.template')
+@section('title', "Baca Qur'an Online")
 
 <style>
     .ayat {

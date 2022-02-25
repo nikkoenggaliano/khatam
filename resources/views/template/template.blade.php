@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title')</title>
+    <title>Khataman - @yield('title')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -94,16 +94,16 @@
                     </div>
                 </div>
             </div>
-            @if(Auth::check())
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-danger" href="{{ route('logout') }}">
-                            <strong>Log Out</strong>
-                        </a>
+            @if (Auth::check())
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-danger" href="{{ route('logout') }}">
+                                <strong>Log Out</strong>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @else
                 <div class="navbar-end">
                     <div class="navbar-item">
@@ -123,7 +123,7 @@
     </nav>
     @section('content')
     @show
-    <footer class="footer">
+    {{-- <footer class="footer">
         <div class="content has-text-centered">
             <i class="fa-brands fa-github"></i>
             <p>
@@ -132,7 +132,9 @@
                 is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
             </p>
         </div>
-    </footer>
+    </footer> --}}
+
+
 
     <script>
         $(document).ready(function() {
@@ -156,6 +158,7 @@
         //     });
         // });
     </script>
+    @yield('scripts')
 </body>
 
 </html>

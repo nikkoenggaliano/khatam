@@ -1,5 +1,5 @@
 @extends('template.template')
-@section('title', 'Khataman - ' . $data[0]->nama_surah)
+@section('title', $data[0]->nama_surah)
 
 
 @section('content')

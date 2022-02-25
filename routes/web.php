@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BacaQuranController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,10 +21,12 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [PublicController::class, 'public'])->name('public');
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('user-dashboard');
+
+    Route::get('/bacaquran', [BacaQuranController::class, 'bacaquran'])->name('bacaquran');
 });
 
 Route::get('/surah/{id}', [PublicController::class, 'BacaSurah'])->name('baca-surah');
@@ -43,5 +46,8 @@ Route::prefix('auth')->group(function () {
     Route::get('/logout', [UserController::class, 'Logout'])->name('logout');
     Route::post('/register-action', [UserController::class, 'Register'])->name('save-register');
     Route::post('/login-action', [UserController::class, 'Login'])->name('save-login');
-
 });
+
+
+
+#Route::get('/gettotalayat', [BacaQuranController::class, 'fixingayattotal']);

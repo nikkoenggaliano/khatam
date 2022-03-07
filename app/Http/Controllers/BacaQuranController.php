@@ -18,36 +18,77 @@ class BacaQuranController extends Controller
         $uid = Auth::user()->id;
 
         $last_surat = BacaQuran::where('user_id', '=', $uid)
+            ->orderBy('created_at', "DESC")
             ->get();
         #dd($last_surat);
 
-        if (count($last_surat) == 0) {
 
+
+        if (count($last_surat) == 0) {
             //belum pernah baca quran di web ini secara terhitung!
             $surat_id = 1;
-            $data = DB::table('quran_id as q')
-                ->join('surah as s', 's.id', '=', 'q.surat_id')
-                ->select('s.nama_surah', 's.arti as surah_arti', 'q.surat_id', 'q.ayat_id', 'q.arab', 'q.arti', 'q.bacaan')
-                ->where('q.surat_id', '=', $surat_id)
-                ->where('q.ayat_id', '=', 1)
-                ->get();
+            $ayat_id = 1;
             #dd($data);
-            return view('user.bacaquran', ['data' => $data]);
+            #return view('user.bacaquran', ['data' => $data]);
+        } else {
+
+            ///garapen sese kene jon
+            dd($last_surat[0]->ayat_id);
         }
 
-        return view('user.bacaquran');
+        $data = DB::table('quran_id as q')
+            ->join('surah as s', 's.id', '=', 'q.surat_id')
+            ->select('s.nama_surah', 's.arti as surah_arti', 'q.surat_id', 'q.ayat_id', 'q.arab', 'q.arti', 'q.bacaan')
+            ->where('q.surat_id', '=', $surat_id)
+            ->where('q.ayat_id', '=', $ayat_id)
+            ->get();
+
+        return view('user.bacaquran', ['data' => $data]);
     }
 
-    public function fixingayattotal()
+    // public function fixingayattotal()
+    // {
+    //     $all_surah = Surah::all();
+    //     #dd($all_surah);
+    //     foreach ($all_surah as $data) {
+    //         $last_ayat = Quran::where('surat_id', '=', $data['id'])->orderBy('ayat_id', "DESC")->limit(1)->get();
+    //         echo $data['id'] . " -> " . $last_ayat[0]['ayat_id'] . "<br> ";
+    //         Surah::where('id', '=', $data['id'])->update([
+    //             'jumlah_ayat' => $last_ayat[0]['ayat_id']
+    //         ]);
+    //     }
+    // }
+
+    public function api_bacaquran(Request $request)
     {
-        $all_surah = Surah::all();
-        #dd($all_surah);
-        foreach ($all_surah as $data) {
-            $last_ayat = Quran::where('surat_id', '=', $data['id'])->orderBy('ayat_id', "DESC")->limit(1)->get();
-            echo $data['id'] . " -> " . $last_ayat[0]['ayat_id'] . "<br> ";
-            Surah::where('id', '=', $data['id'])->update([
-                'jumlah_ayat' => $last_ayat[0]['ayat_id']
-            ]);
+        $no_surat = $request->surat;
+        $no_ayat = $request->ayat;
+        $user_id = Auth::user()->id;
+        $status = 1;
+
+        $cek_log_exist = BacaQuran::where('surat_id', '=', $no_surat)
+            ->where('ayat_id', '=', $no_ayat)
+            ->where('user_id', '=', $user_id)
+            ->where('status', '=', $status)
+            ->get();
+
+        if (count($cek_log_exist) == 0) {
+            //insert
+            $logs_insert = [
+                'surat_id' =>  $no_surat,
+                'ayat_id' => $no_ayat,
+                'user_id' => $user_id,
+                'status' => $status,
+            ];
+
+            #print_r($logs_insert);
+            BacaQuran::Create($logs_insert);
+        } else {
+            echo "sudah ada datanya";
         }
+
+        exit;
+
+        echo $no_ayat, $no_surat, $user_id, $status;
     }
 }

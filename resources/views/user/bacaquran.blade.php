@@ -63,7 +63,29 @@
             var nama_surat = $("#nama-surat").text();
             const surat_id = nama_surat.match(regex_number_surah)
             const noayat = $("#no-ayat").text();
-            console.log(nama_surat, surat_id[0], noayat);
+            console.log(surat_id[0], noayat);
+
+            const data_post = {
+                'ayat': noayat,
+                'surat': surat_id[0]
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('api.bacaquran') }}",
+                data: data_post,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    console.log(data)
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+
+            })
+
         });
     </script>
 @endsection

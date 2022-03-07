@@ -49,5 +49,9 @@ Route::prefix('auth')->group(function () {
 });
 
 
+Route::prefix('api-pubs')->group(function () {
+    Route::post('/bacaquran', [BacaQuranController::class, 'api_bacaquran'])->name('api.bacaquran');
+});
+
 
 #Route::get('/gettotalayat', [BacaQuranController::class, 'fixingayattotal']);

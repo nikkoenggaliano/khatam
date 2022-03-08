@@ -19,21 +19,22 @@ class BacaQuranController extends Controller
 
         $last_surat = BacaQuran::where('user_id', '=', $uid)
             ->orderBy('created_at', "DESC")
+            ->orderBy('surat_id', "DESC")
+            ->orderBy('ayat_id', "DESC")
             ->get();
-        #dd($last_surat);
-
-
 
         if (count($last_surat) == 0) {
-            //belum pernah baca quran di web ini secara terhitung!
             $surat_id = 1;
             $ayat_id = 1;
-            #dd($data);
-            #return view('user.bacaquran', ['data' => $data]);
         } else {
-
-            ///garapen sese kene jon
-            dd($last_surat[0]->ayat_id);
+            $cek_max_ayat = Surah::find($last_surat[0]->surat_id)->jumlah_ayat;
+            if ($last_surat[0]->ayat_id == $cek_max_ayat) {
+                $surat_id = $last_surat[0]->surat_id + 1;
+                $ayat_id  = 1;
+            } else {
+                $surat_id = $last_surat[0]->surat_id;
+                $ayat_id = $last_surat[0]->ayat_id + 1;
+            }
         }
 
         $data = DB::table('quran_id as q')
@@ -81,7 +82,6 @@ class BacaQuranController extends Controller
                 'status' => $status,
             ];
 
-            #print_r($logs_insert);
             BacaQuran::Create($logs_insert);
         } else {
             echo "sudah ada datanya";
@@ -89,6 +89,6 @@ class BacaQuranController extends Controller
 
         exit;
 
-        echo $no_ayat, $no_surat, $user_id, $status;
+        #echo $no_ayat, $no_surat, $user_id, $status;
     }
 }

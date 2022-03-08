@@ -6,6 +6,10 @@
         font-size: 30px;
     }
 
+    #ayat {
+        line-height: 2.2;
+    }
+
     .no-ayat span {
         padding: 10px;
         background: #000000;
@@ -47,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="columns">
+        <div class="columns" style="display: none;" id="button-next">
             <div class="column has-text-centered">
                 <button class="button is-info">Selanjutnya</button>
             </div>
@@ -59,6 +63,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            setTimeout(() => {
+                $("#button-next").css("display", "block");
+            }, 3000);
             const regex_number_surah = /(\d+)/gm;
             var nama_surat = $("#nama-surat").text();
             const surat_id = nama_surat.match(regex_number_surah)
@@ -85,7 +92,6 @@
                 }
 
             })
-
         });
     </script>
 @endsection

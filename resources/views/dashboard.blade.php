@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 @section('content')
     <div class="container">
-        <div class="columns is-centered">
+        <div class="columns is-centered" style="display: none">
             <div class="column is-four-fifths">
                 <div class="notification" id="alert-notify">
                     <button class="delete"></button>
@@ -17,15 +17,7 @@
         <div class="target-khatam has-text-right">
             <p>
                 Target khatam: 29 Juli 2022
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-calendar">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <!-- <i class="fa fa-calendar" aria-hidden="true"></i> -->
+                <i class="fa-solid fa-calendar-days"></i>
             </p>
         </div>
 
@@ -37,10 +29,12 @@
                             <p class="card-header-title has-text-centered">Jumlah Ayat yang dibaca hari ini</p>
                         </header>
                         <div class="content">
-                            <p class="title has-text-centered mt-5">10</p>
+                            <p class="title has-text-centered mt-5">{{ $hari_ini }}</p>
                         </div>
                     </div>
-                    <p class="card-footer has-text-centered" style="background-color: #e7ebef;">Target harian 10/10</p>
+                    <p class="card-footer has-text-centered"
+                        style="background-color: {{ $hari_ini >= 10 ? '#31b776' : '#e7ebef' }}">Target harian
+                        {{ $hari_ini }}/10</p>
                 </div>
             </div>
             <div class="column is-4">
@@ -50,7 +44,7 @@
                             <p class="card-header-title has-text-centered">Total Ayat yang sudah dibaca</p>
                         </header>
                         <div class="content">
-                            <p class="title has-text-centered mt-5">6.236</p>
+                            <p class="title has-text-centered mt-5">{{ $semua_dibaca }}/6236</p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +56,7 @@
                             <p class="card-header-title has-text-centered">Sisa Ayat yang belum</p>
                         </header>
                         <div class="content">
-                            <p class="title has-text-centered mt-5">6.236</p>
+                            <p class="title has-text-centered mt-5">{{ 6236 - $semua_dibaca }}/6236</p>
                         </div>
                     </div>
                 </div>
@@ -73,41 +67,38 @@
                 <div class="card">
                     <div class="card-content">
                         <header class="card-header">
-                            <p class="card-header-title has-text-centered">Hadits Harian</p>
+                            <p class="card-header-title has-text-centered">Hadits Harian ({{ $hadits[0]->bab }})</p>
                         </header>
-                        <p class="mt-2">
-                            حَدَّثَنَا هِشَامُ بْنُ عَمَّارٍ حَدَّثَنَا يَحْيَى بْنُ حَمْزَةَ حَدَّثَنِي ثَوْرُ بْنُ يَزِيدَ
-                            عَنْ خَالِدِ بْنِ مَعْدَانَ عَنْ رَبِيعَةَ بْنِ الْغَازِ أَنَّهُ سَأَلَ عَائِشَةَ عَنْ صِيَامِ
-                            رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَتْ كَانَ يَتَحَرَّى صِيَامَ
-                            الِاثْنَيْنِ وَالْخَمِيسِ
+                        <p class="mt-3 has-text-right arab">
+                            {{ $hadits[0]->arab }}
 
                         </p>
-                        <p class="mt-2">
-                            Telah menceritakan kepada kami Hisyam bin Ammar berkata, telah menceritakan kepada kami Yahya
-                            bin Hamzah berkata, telah menceritakan kepadaku Tsaur bin Yazid dari Khalid bin Ma'dan dari
-                            Rabi'ah bin Al Ghaz Bahwasanya ia bertanya kepada Aisyah tentang puasanya Rasulullah shallallahu
-                            'alaihi wasallam. Maka Aisyah pun menjawab, "Beliau selalu puasa senin dan kamis. "
+                        <p class="mt-2 has-text-left">
+                            {{ $hadits[0]->arti }}
                         </p>
                     </div>
+                    <p class="card-footer has-text-centered" style="background-color: #e7ebef">Perawi
+                        : {{ $hadits[0]->rawi }} || No Hadits: {{ $hadits[0]->no }}
+                    </p>
                 </div>
             </div>
             <div class="column is-6">
                 <div class="card">
                     <div class="card-content">
                         <header class="card-header">
-                            <p class="card-header-title has-text-centered">Ayat Harian (Surah Yasin[36])(40)</p>
+                            <p class="card-header-title has-text-centered">Ayat Harian
+                                ( {{ $quran[0]->nama_surah }}[{{ $quran[0]->surat_id }}])({{ $quran[0]->ayat_id }}
+                                )
+                            </p>
                         </header>
-                        <p class="mt-2">
-                            لَا الشَّمْسُ يَنْۢبَغِيْ لَهَآ اَنْ تُدْرِكَ الْقَمَرَ وَلَا الَّيْلُ سَابِقُ النَّهَارِ
-                            ۗوَكُلٌّ فِيْ فَلَكٍ يَّسْبَحُوْنَ
+                        <p class="mt-3 has-text-right arab">
+                            {{ $quran[0]->arab }}
                         </p>
-                        <p class="mt-2">
-                            lasy-syamsu yambagī lahā an tudrikal-qamara wa lal-lailu sābiqun-nahār, wa kullun fī falakiy
-                            yasbaḥụn
+                        <p class="mt-2 has-text-left">
+                            {{ $quran[0]->bacaan }}
                         </p>
-                        <p class="mt-2">
-                            Tidaklah mungkin bagi matahari mengejar bulan dan malam pun tidak dapat mendahului siang.
-                            Masing-masing beredar pada garis edarnya.
+                        <p class="mt-2 has-text-left">
+                            {{ $quran[0]->arti }}
                         </p>
                     </div>
                 </div>

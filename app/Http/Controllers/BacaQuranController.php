@@ -83,12 +83,23 @@ class BacaQuranController extends Controller
             ];
 
             BacaQuran::Create($logs_insert);
-        } else {
-            echo "sudah ada datanya";
         }
 
-        exit;
+        $cek_max_ayat = Surah::find($no_surat)->jumlah_ayat;
+        if ($no_ayat == $cek_max_ayat) {
+            $surat_id = $no_surat + 1;
+            $ayat_id  = 1;
+        } else {
+            $surat_id = $no_surat;
+            $ayat_id = $no_ayat + 1;
+        }
+        $data = DB::table('quran_id as q')
+            ->join('surah as s', 's.id', '=', 'q.surat_id')
+            ->select('s.nama_surah', 's.arti as surah_arti', 'q.surat_id', 'q.ayat_id', 'q.arab', 'q.arti', 'q.bacaan')
+            ->where('q.surat_id', '=', $surat_id)
+            ->where('q.ayat_id', '=', $ayat_id)
+            ->get();
 
-        #echo $no_ayat, $no_surat, $user_id, $status;
+        return $data;
     }
 }

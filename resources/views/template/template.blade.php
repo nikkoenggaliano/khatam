@@ -41,7 +41,8 @@
 
         .arab {
             font-family: litelpmq;
-            font-size: 30px;
+            font-size: 25px;
+            line-height: 2.2;
         }
 
     </style>
@@ -65,8 +66,8 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item">
-                    Home
+                <a class="navbar-item" href="{{ route('user-dashboard') }}">
+                    Dashboard
                 </a>
 
                 <a class="navbar-item">

@@ -22,9 +22,7 @@ use App\Http\Controllers\BacaQuranController;
 Route::get('/', [PublicController::class, 'public'])->name('public');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('user-dashboard');
+    Route::get('/dashboard', [PublicController::class, 'Dashboard'])->name('user-dashboard');
 
     Route::get('/bacaquran', [BacaQuranController::class, 'bacaquran'])->name('bacaquran');
 });
@@ -51,6 +49,7 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('api-pubs')->group(function () {
     Route::post('/bacaquran', [BacaQuranController::class, 'api_bacaquran'])->name('api.bacaquran');
+    #Route::post('/nextayat', [BacaQuranController::class, 'NextAyat'])->name('api.NextAyat');
 });
 
 

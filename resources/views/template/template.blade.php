@@ -70,8 +70,8 @@
                     Dashboard
                 </a>
 
-                <a class="navbar-item">
-                    Documentation
+                <a class="navbar-item" href="{{ route('hadits-home') }}">
+                    Hadits
                 </a>
 
                 <div class="navbar-item has-dropdown is-hoverable">

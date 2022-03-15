@@ -65,5 +65,11 @@ class PublicController extends Controller
 
         return view('dashboard', ['hari_ini' => $how_many_today, 'semua_dibaca' => $total_readed, 'hadits' => $hadits, 'quran' => $quran]);
     }
+
+
+    public function HaditsPage()
+    {
+        return view('haditshome');
+    }
 }
 #

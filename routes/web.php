@@ -20,6 +20,9 @@ use App\Http\Controllers\BacaQuranController;
 // });
 
 Route::get('/', [PublicController::class, 'public'])->name('public');
+Route::get('/surah/{id}', [PublicController::class, 'BacaSurah'])->name('baca-surah');
+Route::get('/hadits-home', [PublicController::class, 'haditspage'])->name('hadits-home');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [PublicController::class, 'Dashboard'])->name('user-dashboard');
@@ -27,7 +30,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bacaquran', [BacaQuranController::class, 'bacaquran'])->name('bacaquran');
 });
 
-Route::get('/surah/{id}', [PublicController::class, 'BacaSurah'])->name('baca-surah');
 
 
 
@@ -51,6 +53,3 @@ Route::prefix('api-pubs')->group(function () {
     Route::post('/bacaquran', [BacaQuranController::class, 'api_bacaquran'])->name('api.bacaquran');
     #Route::post('/nextayat', [BacaQuranController::class, 'NextAyat'])->name('api.NextAyat');
 });
-
-
-#Route::get('/gettotalayat', [BacaQuranController::class, 'fixingayattotal']);

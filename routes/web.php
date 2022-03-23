@@ -22,7 +22,8 @@ use App\Http\Controllers\BacaQuranController;
 Route::get('/', [PublicController::class, 'public'])->name('public');
 Route::get('/surah/{id}', [PublicController::class, 'BacaSurah'])->name('baca-surah');
 Route::get('/hadits-home', [PublicController::class, 'haditspage'])->name('hadits-home');
-
+Route::post('/cari-hadits', [PublicController::class, 'carihadits'])->name('cari-hadits');
+Route::get('/baca-hadits/{rawi}/{no}', [PublicController::class, 'bacahadits'])->name('baca-hadits');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [PublicController::class, 'Dashboard'])->name('user-dashboard');

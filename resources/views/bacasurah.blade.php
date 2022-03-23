@@ -49,7 +49,7 @@
                             <div class="no-ayat">
                                 <span>{{ $item->ayat_id }}</span>
                             </div>
-                            <p class="ayat has-text-right">{{ $item->arab }}</p>
+                            <p class="ayat has-text-right mt-4">{{ $item->arab }}</p>
                             <p class="bacaan has-text-left">{{ $item->bacaan }}</p>
                             <p class="arti has-text-left">{{ $item->arti }}</p>
                         </div>

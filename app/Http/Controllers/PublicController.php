@@ -69,7 +69,41 @@ class PublicController extends Controller
 
     public function HaditsPage()
     {
-        return view('haditshome');
+        return view('haditshome', ['data' => NULL]);
+    }
+
+    public function carihadits(Request $request)
+    {
+
+        $hasil = "";
+        $data = $request->hadits;
+        $pecah = explode(" ", $data);
+        if (count($pecah) <= 1 && strlen($pecah[0]) < 3) {
+            return redirect()->route('hadits-home');
+        }
+
+
+        if (count($pecah) == 1 && strlen($pecah[0]) > 3) {
+            $hasil = Hadits::where('arti', 'LIKE', "%{$pecah[0]}%")->limit(400)->get();
+        } elseif (count($pecah) > 1) {
+            $hasil = Hadits::where('arti', 'LIKE', "%{$pecah[0]}%");
+            array_shift($pecah);
+            foreach ($pecah as $cari) {
+                $hasil->orWhere('arti', 'LIKE', "%{$cari}%");
+            }
+            $hasil = $hasil->limit(400)->get();
+        }
+        return view('haditshome', ['data' => $hasil]);
+    }
+
+    public function bacahadits($rawi, $no)
+    {
+
+        $data = Hadits::where('rawi', '=', $rawi)->where('no', '=', $no)->get();
+        if (count($data) < 1) {
+
+            return redirect()->route('hadits-home');
+        }
+        return view('bacahadits', ['data' => $data]);
     }
 }
-#

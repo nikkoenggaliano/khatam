@@ -21,19 +21,18 @@
                         <a href="/">
                             <h1 class="title is-1">Khataman</h1>
                         </a>
-                        @if(session()->has('success'))
-                            <h2 class="subtitle colored is-4">{{session('success')}}</h2>
+                        @if (session()->has('success'))
+                            <h2 class="subtitle colored is-4">{{ session('success') }}</h2>
                         @elseif(session()->has('error'))
-                            <h2 class="subtitle errorMsg is-4">{{session('error')}}</h2>
+                            <h2 class="subtitle errorMsg is-4">{{ session('error') }}</h2>
                         @endif
-                    
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis ex deleniti aliquam
-                            tempora libero excepturi vero soluta odio optio sed.</p>
+
+                        <p>Mari mendaftar untuk mendapatkan banyak fitur-fitur dari kami</p>
                     </div>
                     <div class="column right has-text-centered">
                         <h1 class="title is-4">Daftar Sekarang</h1>
                         <p class="description">Daftar di situs kami, dapatkan manfaatnya</p>
-                        <form method="POST" action="{{route('save-register')}}" autocomplete="OFF">
+                        <form method="POST" action="{{ route('save-register') }}" autocomplete="OFF">
                             @csrf
                             <div class="field">
                                 <div class="control">
@@ -74,28 +73,9 @@
             <div class="column is-8 is-offset-2">
                 <br>
                 <nav class="level">
-                    <div class="level-left">
-                        <div class="level-item">
-                            <span class="icon">
-                                <i class="fab fa-twitter"></i>
-                            </span> &emsp;
-                            <span class="icon">
-                                <i class="fab fa-facebook"></i>
-                            </span> &emsp;
-                            <span class="icon">
-                                <i class="fab fa-instagram"></i>
-                            </span> &emsp;
-                            <span class="icon">
-                                <i class="fab fa-github"></i>
-                            </span> &emsp;
-                            <span class="icon">
-                                <i class="fas fa-envelope"></i>
-                            </span>
-                        </div>
-                    </div>
                     <div class="level-right">
                         <small class="level-item" style="color: var(--textLight)">
-                            &copy; Super Cool Website. All Rights Reserved.
+                            &copy; Khataman {{ date('Y') }}
                         </small>
                     </div>
                 </nav>
@@ -103,4 +83,5 @@
         </div>
     </section>
 </body>
+
 </html>

@@ -18,7 +18,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"
         integrity="sha512-yFjZbTYRCJodnuyGlsKamNE/LlEaEAxSUDe5+u61mV8zzqJVFOH7TnULE2/PP/l5vKWpUNnF4VGVkXh3MjgLsg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hurricane&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: litelpmq;
@@ -52,8 +54,8 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-                <img src="https://www.kindpng.com/picc/m/207-2070301_twice-kpop-logo-transparent-hd-png-download.png"
-                    width="112" height="28">
+                <h1 class="title" style="font-family: 'Hurricane', cursive; color: rgb(23, 192, 113);">Khataman
+                </h1>
             </a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
@@ -74,7 +76,7 @@
                     Hadits
                 </a>
 
-                <div class="navbar-item has-dropdown is-hoverable">
+                {{-- <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         More
                     </a>
@@ -94,7 +96,7 @@
                             Report an issue
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
             @if (Auth::check())
                 <div class="navbar-end">

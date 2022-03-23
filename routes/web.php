@@ -24,6 +24,7 @@ Route::get('/surah/{id}', [PublicController::class, 'BacaSurah'])->name('baca-su
 Route::get('/hadits-home', [PublicController::class, 'haditspage'])->name('hadits-home');
 Route::post('/cari-hadits', [PublicController::class, 'carihadits'])->name('cari-hadits');
 Route::get('/baca-hadits/{rawi}/{no}', [PublicController::class, 'bacahadits'])->name('baca-hadits');
+Route::get('/pegonkan', [PublicController::class, 'pegonkan'])->name('pegon-home');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [PublicController::class, 'Dashboard'])->name('user-dashboard');

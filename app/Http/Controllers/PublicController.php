@@ -106,4 +106,8 @@ class PublicController extends Controller
         }
         return view('bacahadits', ['data' => $data]);
     }
+
+    public function pegonkan(){
+        return view('pegon');
+    }
 }

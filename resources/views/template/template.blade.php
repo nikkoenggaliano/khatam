@@ -75,6 +75,9 @@
                 <a class="navbar-item" href="{{ route('hadits-home') }}">
                     Hadits
                 </a>
+                <a class="navbar-item" href="{{ route('pegon-home') }}">
+                    Pegon
+                </a>
 
                 {{-- <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">

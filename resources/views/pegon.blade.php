@@ -11,7 +11,7 @@
                     <textarea class="textarea is-medium is-primary" placeholder="Masukan Teks Bahasa" id="indo"></textarea>
                 </div>
                 <div class="column is-6">
-                    <p class="textarea is-medium is-primary arab has-text-right" id="pegonarab"></p>
+                    <textarea class="textarea is-medium is-primary arab has-text-right" id="pegonarab"></textarea>
                     {{-- <textarea class="textarea is-medium is-primary arab has-text-right" placeholder="Hasil Pegon akan keluar di sini" id="pegonarab" disabled></textarea> --}}
                 </div>
             </div>

@@ -35,6 +35,21 @@
 
     <section class="section">
         <div class="content">
+            <div class="columns has-text-centered">
+                <div class="column">
+                    <div class="select is-rounded">
+                        <select id="carisurat">
+                            <option selected value="000">Silahkan Cari surat di sini</option>
+                            @foreach ($data as $item)
+                                <option value="{{ $item->id }}">[{{ $item->id }}] {{ $item->nama_surah }}
+                                    ({{ $item->arti }})
+                                </option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="titles">
                 <h2>Daftar Surah</h2>
             </div>
@@ -75,4 +90,27 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#carisurat').select2();
+        });
+
+        $('#carisurat').on('change', function(e) {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            if (valueSelected != '000' && parseInt(valueSelected) >= 1 && parseInt(valueSelected) <= 114) {
+
+                var url_red = "{{ route('baca-surah', ['id' => ':id']) }}";
+                url_red = url_red.replace(':id', valueSelected);
+                window.location.href = url_red;
+            }
+            //console.log(valueSelected);
+        });
+    </script>
 @endsection

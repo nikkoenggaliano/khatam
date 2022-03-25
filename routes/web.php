@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BacaQuranController;
+use App\Http\Controllers\ApiPublicController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +53,6 @@ Route::prefix('auth')->group(function () {
 
 
 Route::prefix('api-pubs')->group(function () {
-    Route::post('/bacaquran', [BacaQuranController::class, 'api_bacaquran'])->name('api.bacaquran');
-    #Route::post('/nextayat', [BacaQuranController::class, 'NextAyat'])->name('api.NextAyat');
+    Route::post('/bacaquran', [ApiPublicController::class, 'api_bacaquran'])->name('api.bacaquran');
+    Route::post('/favorites', [ApiPublicController::class, 'api_fav'])->name('api.fav');
 });

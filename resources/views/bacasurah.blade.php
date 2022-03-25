@@ -16,8 +16,9 @@
             color: #ffffff;
         }
 
-        #bacaan {
-            font-size: 20px;
+        .bacaan {
+            font-size: 18px;
+            font-style: italic;
         }
 
         #arti {
@@ -52,6 +53,36 @@
                             <p class="ayat has-text-right mt-4">{{ $item->arab }}</p>
                             <p class="bacaan has-text-left">{{ $item->bacaan }}</p>
                             <p class="arti has-text-left">{{ $item->arti }}</p>
+
+                            @auth
+                                <div class="level is-mobile level-right">
+                                    <div class="level-right">
+                                        {{-- <a class="level-item" aria-label="reply">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-reply" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    <a class="level-item" aria-label="retweet">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-retweet" aria-hidden="true"></i>
+                                        </span>
+                                    </a> --}}
+                                        <a class="level-item" aria-label="like"
+                                            onclick="FavSurat('{{ $item->surat_id }}-{{ $item->ayat_id }}-surat')">
+                                            <span class="icon is-medium">
+                                                <i class="fa-regular fa-heart"
+                                                    id="icon-fav-{{ $item->surat_id }}-{{ $item->ayat_id }}-surat"></i>
+
+                                            </span>
+                                        </a>
+                                        {{-- <span class="icon is-medium">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </span> --}}
+                                    </div>
+                                </div>
+                            @endauth
+
+
                         </div>
                     </div>
                 </div>
@@ -98,4 +129,34 @@
             </div>
         </div>
     </section>
+@endsection
+
+
+@section('scripts')
+    @auth
+        <script>
+            function FavSurat(me) {
+                $("#icon-fav-" + me).removeClass("fa-regular fa-heart").addClass("fa-solid fa-heart");
+                const data_post = {
+                    data: me
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('api.fav') }}",
+                    data: data_post,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        console.log(data)
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    }
+                })
+            }
+        </script>
+
+    @endauth
+
 @endsection

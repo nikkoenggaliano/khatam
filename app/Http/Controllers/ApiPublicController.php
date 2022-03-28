@@ -60,22 +60,35 @@ class ApiPublicController extends Controller
     {
         $allowed = ['surat', 'hadits'];
         $data = $request->data;
-        $pecah = explode('-', $data); //sumber - no - type
+        $datas = json_decode($data, TRUE);
+        $pecah = explode('-', $datas['id']); //sumber - no - type
+        $uid = Auth::user()->id;
 
         if (count($pecah) != 3) {
 
             return 'Nono';
         }
 
-
         if (!in_array($pecah[2], $allowed)) {
             return 'Not Allowed';
         }
 
+        $is_exist = Favorite::where('sumber', '=', $pecah[0])->where('uid', '=', $uid)->where('no', '=', $pecah[1])->where('type', '=', $pecah[2])->get();
 
-        $is_exist = Favorite::where('sumber', '=', $pecah[0])->where('no', '=', $pecah[1])->where('type', '=', $pecah[2])->get();
-        return $is_exist;
+        $the_datas = array(
+            'uid'   => $uid,
+            'sumber' => $pecah[0],
+            'no'    => $pecah[1],
+            'type'  => $pecah[2],
+            'comments' => $datas['comments']
 
-        return 'ok';
+        );
+
+        if (count($is_exist) < 1) {
+            Favorite::Create($the_datas);
+            return 'Ok';
+        } else {
+            return 'Already';
+        }
     }
 }

@@ -46,7 +46,6 @@
             font-size: 25px;
             line-height: 2.2;
         }
-
     </style>
 </head>
 
@@ -79,6 +78,13 @@
                     Pegon
                 </a>
 
+                @auth
+
+                <a class="navbar-item" href="{{ route('myfavorites') }}">
+                    Favorites&nbsp;<i class="fa-solid fa-thumbs-up"></i>
+                </a>
+                @endauth
+
                 {{-- <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         More
@@ -102,28 +108,28 @@
                 </div> --}}
             </div>
             @if (Auth::check())
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-danger" href="{{ route('logout') }}">
-                                <strong>Log Out</strong>
-                            </a>
-                        </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-danger" href="{{ route('logout') }}">
+                            <strong>Log Out</strong>
+                        </a>
                     </div>
                 </div>
+            </div>
             @else
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-primary" href="{{ route('register-page') }}">
-                                <strong>Sign up</strong>
-                            </a>
-                            <a class="button is-light" href="{{ route('login-page') }}">
-                                Log in
-                            </a>
-                        </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="{{ route('register-page') }}">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="{{ route('login-page') }}">
+                            Log in
+                        </a>
                     </div>
                 </div>
+            </div>
             @endif
 
         </div>

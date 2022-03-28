@@ -31,6 +31,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [PublicController::class, 'Dashboard'])->name('user-dashboard');
 
     Route::get('/bacaquran', [BacaQuranController::class, 'bacaquran'])->name('bacaquran');
+
+    Route::post('/favorites', [ApiPublicController::class, 'api_fav'])->name('api.fav');
+
+    Route::get('/my-favorite/{type?}', [UserController::class, 'MyFavorites'])->name('myfavorites');
 });
 
 
@@ -54,5 +58,4 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('api-pubs')->group(function () {
     Route::post('/bacaquran', [ApiPublicController::class, 'api_bacaquran'])->name('api.bacaquran');
-    Route::post('/favorites', [ApiPublicController::class, 'api_fav'])->name('api.fav');
 });

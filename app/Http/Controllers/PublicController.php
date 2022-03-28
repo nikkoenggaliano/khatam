@@ -6,6 +6,7 @@ use \App\Models\Surah as Surah;
 use \App\Models\Quran as Quran;
 use \App\Models\BacaQuran as BacaQuran;
 use \App\Models\Hadits as Hadits;
+use \App\Models\Favorite as Favorite;
 use Illuminate\Http\Request;
 
 use DB;
@@ -43,8 +44,21 @@ class PublicController extends Controller
 
         );
 
+        $favorites = [];
+
+        if (Auth::check()) {
+            $uid = Auth::user()->id;
+            $get = Favorite::where('sumber', '=', $id)->where('uid', '=', $uid)->where('type', '=', 'surat')->get();
+            if (count($get) > 0) {
+                foreach ($get as $item) {
+                    array_push($favorites, $item->no);
+                }
+            }
+        }
+
+        #print_r($favorites);
         $quick_data = DB::table('surah')->whereIn('id', $quick_links)->get();
-        return view('bacasurah', ['data' => $data, 'quick_data' => $quick_data]);
+        return view('bacasurah', ['data' => $data, 'quick_data' => $quick_data, 'favorites' => $favorites]);
     }
 
     public function Dashboard()
@@ -104,10 +118,21 @@ class PublicController extends Controller
 
             return redirect()->route('hadits-home');
         }
-        return view('bacahadits', ['data' => $data]);
+
+        $favorites = False;
+
+        if (Auth::check()) {
+            $uid = Auth::user()->id;
+            $get = Favorite::where('sumber', '=', $rawi)->where('no', '=', $no)->where('uid', '=', $uid)->where('type', '=', 'hadits')->get();
+            if (count($get) > 0) {
+                $favorites = True;
+            }
+        }
+        return view('bacahadits', ['data' => $data, 'favorites' => $favorites]);
     }
 
-    public function pegonkan(){
+    public function pegonkan()
+    {
         return view('pegon');
     }
 }

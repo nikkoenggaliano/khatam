@@ -82,4 +82,32 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->route('login-page')->with('success', 'Logout Berhasil!');
     }
+
+
+    public function MyFavorites($type = 'surat')
+    {
+        $tipe = $type;
+        $uid = Auth::user()->id;
+        $type = "Ayat";
+        if (!isset($tipe) || $tipe == 'ayat' || $tipe == 'surat') {
+            $data = DB::table('favorites as f')
+                ->join('surah as s', 'f.sumber', '=', 's.id')
+                ->select('f.sumber', 'f.no', 's.nama_surah', 's.arti', 'f.created_at')
+                ->where('f.uid', '=', $uid)
+                ->where('f.type', '=', 'surat')
+                ->get();
+        } else {
+            DB::enableQueryLog();
+            // $data = DB::table('favorites as f')
+            //     ->join('hadits as h', 'f.sumber', '=', 'h.rawi')
+            //     ->select('f.sumber', 'f.no', 'h.bab', 'h.rawi', 'f.created_at')
+            //     ->where('f.type', '=', 'hadits')
+            //     ->where('f.uid', '=', $uid)
+            //     ->where('f.no', '=', 'h.no')
+            //     ->get();
+            $data = DB::select("select `f`.`sumber`, `f`.`no`, `h`.`bab`, `h`.`rawi`, `f`.`created_at` from `favorites` as `f` join `hadits` as `h` on `f`.`sumber` = `h`.`rawi` and f.no = h.no WHERE `f`.`uid` = ? and `f`.`type` = 'hadits';", [$uid]);
+            $type = "Hadits";
+        }
+        return view('user.myfavorites', ['data' => $data, 'type' => $type]);
+    }
 }

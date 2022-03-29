@@ -10,6 +10,10 @@ use Hash;
 use Validator;
 use DB;
 
+use \App\Models\Quran as Quran;
+use \App\Models\Hadits as Hadits;
+use \App\Models\Favorite as Favorite;
+
 class UserController extends Controller
 {
 
@@ -109,5 +113,52 @@ class UserController extends Controller
             $type = "Hadits";
         }
         return view('user.myfavorites', ['data' => $data, 'type' => $type]);
+    }
+
+    public function ReadFav($type, $sumber, $no)
+    {
+        $types = ['ayat', 'hadits'];
+        $uid = Auth::user()->id;
+        $data = "";
+        if (!in_array($type, $types)) {
+
+            return redirect()->route('myfavorites');
+        }
+
+        if ($type == 'ayat') {
+
+            $cek_has = Favorite::where('uid', '=', $uid)->where('sumber', '=', $sumber)->where('no', '=', $no)->where('type', '=', 'surat')->get();
+            if (count($cek_has) > 0) {
+
+                $data = DB::table('quran_id as q')
+                    ->join('surah as s', 's.id', '=', 'q.surat_id')
+                    ->select('s.nama_surah', 's.arti as surah_arti', 'q.surat_id', 'q.ayat_id', 'q.arab', 'q.arti', 'q.bacaan')
+                    ->where('q.surat_id', '=', $sumber)
+                    ->where('q.ayat_id', '=', $no)
+                    ->get();
+
+                if (count($data) < 1) {
+                    return redirect()->route('myfavorites');
+                }
+            } else {
+                return redirect()->route('myfavorites');
+            }
+        } else {
+
+            $cek_has = Favorite::where('uid', '=', $uid)->where('sumber', '=', $sumber)->where('no', '=', $no)->where('type', '=', 'hadits')->get();
+            if (count($cek_has) > 0) {
+
+                $data = Hadits::where('rawi', '=', $sumber)->where('no', '=', $no)->get();
+                if (count($data) < 1) {
+
+                    return redirect()->route('myfavorites');
+                }
+            } else {
+                return redirect()->route('myfavorites');
+            }
+        }
+        #dd($cek_has);
+
+        return view('user.readfavorites', ['data' => $data, 'type' => $type, 'fav' => $cek_has]);
     }
 }

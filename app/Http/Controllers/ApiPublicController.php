@@ -91,4 +91,25 @@ class ApiPublicController extends Controller
             return 'Already';
         }
     }
+
+    public function UpdateApi(Request $request)
+    {
+        //type / ids / data{} -> want to update
+        $uid = Auth::user()->id;
+
+        $table_allowed = ['favorite' => Favorite::class];
+        $datas = json_decode($request->data, True);
+        if (!array_key_exists($datas['type'], $table_allowed)) {
+            return "Not Allowed";
+        }
+        $cek_datas = $table_allowed[$datas['type']]::where('id', '=', $datas['ids'])->where('uid', '=', $uid)->get();
+
+        if (count($cek_datas) > 0) {
+
+            $table_allowed[$datas['type']]::where('id', '=', $datas['ids'])->Update($datas['data']);
+            return "Update Berhasil!";
+        } else {
+            return "Ada kesalahan!";
+        }
+    }
 }

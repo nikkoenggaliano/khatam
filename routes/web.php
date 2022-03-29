@@ -32,9 +32,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/bacaquran', [BacaQuranController::class, 'bacaquran'])->name('bacaquran');
 
-    Route::post('/favorites', [ApiPublicController::class, 'api_fav'])->name('api.fav');
-
     Route::get('/my-favorite/{type?}', [UserController::class, 'MyFavorites'])->name('myfavorites');
+
+    Route::get('/read-favorite/{type}/{sumber}/{no}', [UserController::class, 'ReadFav'])->name('readfav');
+
+    Route::prefix('api-auth')->group(function () {
+        Route::post('/favorites', [ApiPublicController::class, 'api_fav'])->name('api.fav');
+        Route::post('/update-something', [ApiPublicController::class, 'UpdateApi'])->name('api.update.things');
+    });
 });
 
 

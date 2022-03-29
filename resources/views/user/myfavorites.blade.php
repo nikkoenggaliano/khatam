@@ -44,11 +44,16 @@
                             <tr>
                                 <td>{{$loop->index+1}}</td>
                                 @if ($type == 'Ayat')
-                                <td>{{$item->nama_surah}} ({{$item->arti}})</td>
+                                <td><a
+                                        href="{{ route('readfav', ['type' => 'ayat', 'sumber' => $item->sumber, 'no' => $item->no]); }}">{{$item->nama_surah}}
+                                        ({{$item->arti}})</a></td>
                                 <td>{{$item->no}}</td>
                                 @else
                                 <td>{{$item->rawi}} ({{$item->no}})</td>
-                                <td>{{$item->bab}}</td>
+                                <td><a
+                                        href="{{ route('readfav', ['type' => 'hadits', 'sumber' => $item->sumber, 'no' => $item->no]); }}">
+                                        {{$item->bab}}</a></td>
+                                </a></td>
                                 @endif
                                 <td>{{$item->created_at}}</td>
                             </tr>

@@ -19,12 +19,12 @@
                 <div class="columns">
                     <div class="column left">
                         <a href="/">
-                            <h1 class="title is-1">Khataman</h1>
+                            <h1 class="title is-1">{{ env('APP_NAME')}}</h1>
                         </a>
                         @if (session()->has('success'))
-                            <h2 class="subtitle colored is-4">{{ session('success') }}</h2>
+                        <h2 class="subtitle colored is-4">{{ session('success') }}</h2>
                         @elseif(session()->has('error'))
-                            <h2 class="subtitle errorMsg is-4">{{ session('error') }}</h2>
+                        <h2 class="subtitle errorMsg is-4">{{ session('error') }}</h2>
                         @endif
 
                         <p>Mari mendaftar untuk mendapatkan banyak fitur-fitur dari kami</p>

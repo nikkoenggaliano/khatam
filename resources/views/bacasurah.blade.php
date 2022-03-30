@@ -178,7 +178,7 @@
                 $("#ids-surah").val(me);
                 return false;
 
-            }
+    }
     function CloseModal(ids){
         $("#"+ids).removeClass("is-active");
         $("#ids-surah").val('');

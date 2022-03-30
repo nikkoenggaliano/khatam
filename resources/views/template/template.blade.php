@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Khataman - @yield('title')</title>
+    <title>{{ env('APP_NAME')}} - @yield('title')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -53,7 +53,8 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-                <h1 class="title" style="font-family: 'Hurricane', cursive; color: rgb(23, 192, 113);">Khataman
+                <h1 class="title" style="font-family: 'Hurricane', cursive; color: rgb(23, 192, 113);">{{
+                    env('APP_NAME')}}
                 </h1>
             </a>
 

@@ -112,4 +112,29 @@ class ApiPublicController extends Controller
             return "Ada kesalahan!";
         }
     }
+
+    public function GetApi(Request $request)
+    {
+        $ret = [];
+        $uid = Auth::user()->id;
+        $table_allowed = ['favorite' => Favorite::class];
+        $type = $request->types;
+        $column = $request->ask;
+        $datas = json_decode($request->data, True);
+        if (!array_key_exists($type, $table_allowed)) {
+            return "Not Allowed";
+        }
+        $cek_datas = $table_allowed[$type]::where('uid', '=', $uid);
+
+        foreach ($datas as $col => $isi) {
+            $cek_datas = $cek_datas->where($col, '=', $isi);
+        }
+        $cek_datas = $cek_datas->get();
+
+        foreach (explode(",", $column) as $item) {
+            $ret[] = $cek_datas[0][$item];
+        }
+
+        return $ret;
+    }
 }

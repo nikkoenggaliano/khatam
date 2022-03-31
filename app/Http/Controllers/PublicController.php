@@ -9,6 +9,7 @@ use \App\Models\Hadits as Hadits;
 use \App\Models\Favorite as Favorite;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
 use DB;
 use Auth;
 
@@ -67,6 +68,14 @@ class PublicController extends Controller
 
         $how_many_today =  count(BacaQuran::where('created_at', '>=', date('Y-m-d') . ' 00:00:00')->where('user_id', $user_id)->get());
         $total_readed = count(BacaQuran::where('user_id', $user_id)->get());
+        $total_ayat = 6236;
+
+        $r1 = $total_ayat - $total_readed;
+        $r2 = $how_many_today > 0 ? $how_many_today : 10;
+        $r3 = $r1 / $r2;
+
+        $khatamdate = Carbon::now()->addDays($r3);
+
         $hadits = Hadits::inRandomOrder()->limit(1)->get();
         $quran = DB::table('quran_id as q')
             ->join('surah as s', 's.id', '=', 'q.surat_id')
@@ -77,7 +86,7 @@ class PublicController extends Controller
 
         #dd($hadits);
 
-        return view('dashboard', ['hari_ini' => $how_many_today, 'semua_dibaca' => $total_readed, 'hadits' => $hadits, 'quran' => $quran]);
+        return view('dashboard', ['hari_ini' => $how_many_today, 'semua_dibaca' => $total_readed, 'hadits' => $hadits, 'quran' => $quran, 'khatam_date' => $khatamdate]);
     }
 
 

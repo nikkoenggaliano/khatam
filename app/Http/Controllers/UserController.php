@@ -13,6 +13,7 @@ use DB;
 use \App\Models\Quran as Quran;
 use \App\Models\Hadits as Hadits;
 use \App\Models\Favorite as Favorite;
+use \App\Models\Group as Group;
 
 class UserController extends Controller
 {
@@ -160,5 +161,13 @@ class UserController extends Controller
         #dd($cek_has);
 
         return view('user.readfavorites', ['data' => $data, 'type' => $type, 'fav' => $cek_has]);
+    }
+
+
+    public function MyGroup()
+    {
+        $uid = Auth::user()->id;
+        $data = Group::where('uid', '=', $uid)->get();
+        return view('user.mygroup', ['data' => $data]);
     }
 }

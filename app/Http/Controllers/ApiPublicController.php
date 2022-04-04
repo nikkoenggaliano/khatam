@@ -9,6 +9,7 @@ use \App\Models\BacaQuran as BacaQuran;
 use \App\Models\Surah as Surah;
 use \App\Models\Quran as Quran;
 use \App\Models\Favorite as Favorite;
+use \App\Models\Group as Group;
 
 class ApiPublicController extends Controller
 {
@@ -136,5 +137,22 @@ class ApiPublicController extends Controller
         }
 
         return $ret;
+    }
+
+    public function InsertApi(Request $request)
+    {
+        $uid = Auth::user()->id;
+        $table_allowed = ['group' => Group::class];
+
+        $type = $request->types;
+
+        if (!array_key_exists($type, $table_allowed)) {
+            return "Not Allowed";
+        }
+
+        $datas = json_decode($request->data, True);
+        $datas['uid'] = $uid;
+        $table_allowed[$type]::create($datas);
+        return "ok";
     }
 }

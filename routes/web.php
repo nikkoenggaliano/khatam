@@ -34,12 +34,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/my-favorite/{type?}', [UserController::class, 'MyFavorites'])->name('myfavorites');
 
+    Route::get('/my-group', [UserController::class, 'MyGroup'])->name('mygroup');
+
     Route::get('/read-favorite/{type}/{sumber}/{no}', [UserController::class, 'ReadFav'])->name('readfav');
 
     Route::prefix('api-auth')->group(function () {
         Route::post('/favorites', [ApiPublicController::class, 'api_fav'])->name('api.fav');
         Route::post('/update-something', [ApiPublicController::class, 'UpdateApi'])->name('api.update.things');
         Route::post('/get-something', [ApiPublicController::class, 'GetApi'])->name('api.get.things');
+        Route::post('/insert-something', [ApiPublicController::class, 'InsertApi'])->name('api.insert.things');
     });
 });
 

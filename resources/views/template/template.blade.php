@@ -84,6 +84,9 @@
                 <a class="navbar-item" href="{{ route('myfavorites') }}">
                     Favorites&nbsp;<i class="fa-solid fa-thumbs-up"></i>
                 </a>
+                <a class="navbar-item" href="{{ route('mygroup') }}">
+                    Group&nbsp;<i class="fa-solid fa-layer-group"></i>
+                </a>
                 @endauth
 
                 {{-- <div class="navbar-item has-dropdown is-hoverable">

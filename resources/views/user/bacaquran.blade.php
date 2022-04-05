@@ -53,7 +53,8 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success" onclick="SaveFavorites();">Save changes</button>
+                <button class="button is-success" style="display: block" id="buttonsavefav"
+                    onclick="SaveFavorites();">Save Favorites</button>
                 <button class="button" onclick="CloseModal('modal-ter');">Cancel</button>
             </footer>
         </div>
@@ -205,6 +206,7 @@
                 comments: comments
             });
             const data_post = { data: datas }
+            $("#buttonsavefav").css('display', 'none');
             $.ajax({
                 type: "POST",
                 url: "{{ route('api.fav') }}",

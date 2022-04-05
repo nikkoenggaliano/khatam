@@ -215,6 +215,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
+                    $("#buttonsavefav").css('display', 'block');
                     if(data == 'Ok'){
                         Swal.fire({
                             icon: 'success',

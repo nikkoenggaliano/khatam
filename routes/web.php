@@ -68,3 +68,12 @@ Route::prefix('auth')->group(function () {
 Route::prefix('api-pubs')->group(function () {
     Route::post('/bacaquran', [ApiPublicController::class, 'api_bacaquran'])->name('api.bacaquran');
 });
+
+
+Route::prefix("mobile")->group(function () {
+    //route get to path /list-surah to get list surah
+    Route::get('/list-surah', [ApiPublicController::class, 'list_surah'])->name('mobile.list-surah');
+
+    //route get with param id called baca quran to fetch quran_id by id
+    Route::get('/baca-quran/{id}', [ApiPublicController::class, 'baca_quran'])->name('mobile.baca-quran');
+});

@@ -155,4 +155,27 @@ class ApiPublicController extends Controller
         $table_allowed[$type]::create($datas);
         return "ok";
     }
+
+    //function list_surah to get all named surah from database returned json  only, id, name_surah,arti, jumlah_ayat
+    public function list_surah()
+    {
+        $data = Surah::select('id', 'nama_surah', 'arti', 'jumlah_ayat')->get();
+        return $data;
+    }
+
+    public function baca_quran($id)
+    {
+
+
+        if ($id > 114) {
+            return "Surat id only till 114";
+        }
+
+        $data = DB::table('quran_id as q')
+            ->join('surah as s', 's.id', '=', 'q.surat_id')
+            ->select('s.nama_surah', 's.arti as surah_arti', 'q.surat_id', 'q.ayat_id', 'q.arab', 'q.arti', 'q.bacaan')
+            ->where('q.surat_id', '=', $id)
+            ->get();
+        return $data;
+    }
 }
